@@ -1,5 +1,5 @@
 {
-  "name": "@taxnuke/reksio",
+  "name": "reksio",
   "private": false,
   "version": "0.0.2",
   "description": "A beginner-friendly synchronous test library for learning",
