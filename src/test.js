@@ -1,4 +1,5 @@
 var Assertion = require('./assertion')
+var emoji = require('./emoji')
 
 function Test(desc) {
   this._desc = desc
@@ -12,12 +13,12 @@ Test.prototype.eqv = function (actual, expected, msg) {
 }
 
 Test.prototype.run = function () {
-  console.log('\nWoof!\uD83D\uDC15')
+  console.log('Woof!' + emoji.dog)
   console.log(this._desc)
 
   this._queue.forEach(function (assertion) {
     if (!assertion.exec()) {
-      console.log('\t\uD83D\uDC4E', assertion.msg)
+      console.log('\t' + emoji.failed, assertion.msg)
     }
   })
 
@@ -34,7 +35,10 @@ Test.prototype.run = function () {
   }, { passed: 0, failed: 0, pending: 0 })
 
   console.log(
-    '\nTotal\uD83D\uDC3E\n\t%d\uD83D\uDC4E\n\t%d\uD83D\uDC4D\n\t%d\u270B',
+    '\nTotal' + emoji.paws +
+    '\n\t%d' + emoji.passed +
+    '\n\t%d' + emoji.failed +
+    '\n\t%d' + emoji.pending,
     total.passed,
     total.failed,
     total.pending
