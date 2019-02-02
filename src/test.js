@@ -13,7 +13,7 @@ Test.prototype.eqv = function (actual, expected, msg) {
 }
 
 Test.prototype.run = function () {
-  console.log('Woof!' + emoji.dog)
+  console.log('Woof!' + emoji.dog + '\n')
   console.log(this._desc)
 
   this._queue.forEach(function (assertion) {
