@@ -1,26 +1,4 @@
-var states = Object.freeze({
-  pending: 'Pending',
-  failed: 'Failed',
-  passed: 'Passed'
-})
-
-function Assertion(fn, msg) {
-  this.state = states.pending
-  this.fn = fn
-  this.msg = msg
-}
-
-Assertion.prototype.exec = function () {
-  var result = this.fn()
-
-  if (result) {
-    this.state = states.passed
-  } else {
-    this.state = states.failed
-  }
-
-  return result
-}
+var Assertion = require('./src/assertion')
 
 function Test(desc) {
   this._desc = desc
@@ -43,9 +21,9 @@ Test.prototype.run = function () {
   })
 
   var total = this._queue.reduce(function (acc, c) {
-    if (c.state === states.passed) {
+    if (c.isPending) {
       acc.passed++
-    } else if (c.state === states.failed) {
+    } else if (c.isFailed) {
       acc.failed++
     } else {
       acc.pending++
