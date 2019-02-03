@@ -38,6 +38,8 @@ Test.prototype.run = function () {
   this._queue.forEach(function (assertion) {
     if (!assertion.exec()) {
       console.log('\t' + emoji.failed, assertion.errMsg)
+    } else {
+      console.log('\t' + emoji.passed, assertion.actual)
     }
   })
 

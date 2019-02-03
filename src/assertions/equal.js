@@ -1,4 +1,4 @@
-var Assertion = require('../assertion')
+var Assertion = require('./_base')
 
 /**
  * Non-strict equal (==)
@@ -15,10 +15,16 @@ function EqualAssertion(actual, expected) {
 EqualAssertion.prototype = Object.create(Assertion.prototype)
 EqualAssertion.prototype.constructor = EqualAssertion
 
+/**
+ * Assertion logic
+ */
 EqualAssertion.prototype.fn = function () {
   return this.actual == this.expected
 }
 
+/**
+ * Error message
+ */
 Object.defineProperty(EqualAssertion.prototype, 'errMsg', {
   get: function () {
     return 'Expected ' + this.expected + ' to equal ' + this.actual

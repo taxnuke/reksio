@@ -1,17 +1,29 @@
+/**
+ * Assertion states enum
+ */
 var states = Object.freeze({
-  pending: 'Pending',
-  failed: 'Failed',
-  passed: 'Passed'
+  failed: -1,
+  pending: 0,
+  passed: 1
 })
 
+/**
+ * Base Assertion superclass
+ */
 function Assertion() {
   this._state = states.pending
 }
 
+/**
+ * Marks assertion as skipped
+ */
 Assertion.prototype.skip = function () {
   this.isSkipped = true
 }
 
+/**
+ * Executes the assertion
+ */
 Assertion.prototype.exec = function () {
   if (this.isSkipped) {
     return true
