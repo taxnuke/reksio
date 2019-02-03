@@ -6,26 +6,41 @@ A beginner-friendly synchronous test library for learning
 
 Example:
 ```js
-var test = require('reksio')
+var describe = require('./index')
 
-test('Some stuff', function (assert) {
-  // assert.eqv(4, 5)
-  assert.eqv(5, 5)
-  assert.equal(9, 9)
-  assert.equal(8, 9)
-  assert.deepEqual([1], [1])
-  assert.deqv([3, 4, 6], [3, 4, 5])
-})
+describe('Some suite')
+  .xit('foo bar', function (assert) {
+    assert.equal(3, 3)
+    assert.equal(2, 3)
+  })
+  .it('baz', function (assert) {
+    assert.deepEqual([1, 2, 3], [1, 2])
+    assert.deepEqual([1, 2], [1, 2])
+  })
+
+describe('Other suite')
+  .it('qux', function (assert) {
+    assert.equal(5, 6)
+    assert.eqv(8, 7)
+  })
+  .it('quux', function (assert) {
+    assert.deepEqual([1, 2, 3], [1, 2, 3])
+    assert.deqv([1, 2], [1, 2])
+  })
+
 ```
 
 Result:
 ```sh
-Woof!🐕
-Equality stuff
-        👎 Expected 9 to equal 8
-        👎 Expected 3,4,5 to be deeply equal 3,4,6
-Total🐾
-        3👍
-        2👎
-        0✋
+Some suite??
+        foo bar ?
+        baz
+                ?? Expected 1,2,3 to be deeply equal 1,2
+
+Other suite??
+        qux
+                ?? Expected 5 to equal 6
+                ?? Expected 8 to equal 7
+        quux
+        OK!
 ```
