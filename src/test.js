@@ -9,6 +9,9 @@ function Test(desc) {
   this._queue = []
 }
 
+/**
+ * Getter property for assertion skipping
+ */
 Object.defineProperty(Test.prototype, 'x', {
   get: function () {
     this.skipNext = true
@@ -17,10 +20,14 @@ Object.defineProperty(Test.prototype, 'x', {
   }
 })
 
+// Mixin setup
 for (var key in assertMixin) {
   Test.prototype[key] = assertMixin[key]
 }
 
+/**
+ * Runs assertions in the queue
+ */
 Test.prototype.run = function () {
   console.log('Woof!' + emoji.dog + '\n')
   console.log(this._desc)
