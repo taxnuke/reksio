@@ -27,7 +27,7 @@ EqualAssertion.prototype.fn = function () {
  */
 Object.defineProperty(EqualAssertion.prototype, 'errMsg', {
   get: function () {
-    return 'Expected ' + this.expected + ' to equal ' + this.actual
+    return 'Expected ' + this.actual + ' to equal ' + this.expected
   }
 })
 

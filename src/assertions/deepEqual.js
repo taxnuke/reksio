@@ -42,7 +42,7 @@ DeepEqualAssertion.prototype.fn = function () {
  */
 Object.defineProperty(DeepEqualAssertion.prototype, 'errMsg', {
   get: function () {
-    return 'Expected ' + this.expected + ' to be deeply equal ' + this.actual
+    return 'Expected ' + this.actual + ' to be deeply equal ' + this.expected
   }
 })
 
