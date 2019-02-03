@@ -15,20 +15,9 @@ function Assertion() {
 }
 
 /**
- * Marks assertion as skipped
- */
-Assertion.prototype.skip = function () {
-  this.isSkipped = true
-}
-
-/**
  * Executes the assertion
  */
 Assertion.prototype.exec = function () {
-  if (this.isSkipped) {
-    return true
-  }
-
   var result = this.fn()
 
   if (result) {

@@ -10,35 +10,10 @@ function Test(desc) {
 }
 
 /**
- * Getter property for assertion skipping
+ * Returns the amount of passed, failed and pending assertion
  */
-Object.defineProperty(Test.prototype, 'x', {
-  get: function () {
-    this.skipNext = true
-
-    return this
-  }
-})
-
-// Mixin setup
-for (var key in assertMixin) {
-  Test.prototype[key] = assertMixin[key]
-}
-
-/**
- * Runs assertions in the queue
- */
-Test.prototype.run = function () {
-  console.log('Woof!' + emoji.dog + '\n')
-  console.log(this._desc)
-
-  this._queue.forEach(function (assertion) {
-    if (!assertion.exec()) {
-      console.log('\t' + emoji.failed, assertion.errMsg)
-    }
-  })
-
-  var total = this._queue.reduce(function (acc, c) {
+Test.prototype.getTotal = function () {
+  return this._queue.reduce(function (acc, c) {
     if (c.isPassed) {
       acc.passed++
     } else if (c.isFailed) {
@@ -49,20 +24,30 @@ Test.prototype.run = function () {
 
     return acc
   }, { passed: 0, failed: 0, pending: 0 })
+}
+
+// Mixin setup
+for (var key in assertMixin) {
+  Test.prototype[key] = assertMixin[key]
+}
+
+/**
+ * Runs assertions in the queue
+ */
+Test.prototype.run = function () {
+  console.log('\t' + this._desc)
+
+  this._queue.forEach(function (assertion) {
+    if (!assertion.exec()) {
+      console.log('\t\t' + emoji.failed, assertion.errMsg)
+    }
+  })
+
+  var total = this.getTotal()
 
   if (!total.failed) {
     console.log('\tOK!')
   }
-
-  console.log(
-    '\nTotal' + emoji.paws +
-    '\n\t%d' + emoji.passed +
-    '\n\t%d' + emoji.failed +
-    '\n\t%d' + emoji.pending,
-    total.passed,
-    total.failed,
-    total.pending
-  )
 }
 
 module.exports = Test
