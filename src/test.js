@@ -1,16 +1,35 @@
-var Assertion = require('./assertion')
+var EqualAssertion = require('./assertions/equal')
 var emoji = require('./emoji')
 
+/**
+ * @param {String} desc - test description
+ */
 function Test(desc) {
   this._desc = desc
   this._queue = []
 }
 
-Test.prototype.eqv = function (actual, expected, msg) {
-  this._queue.push(new Assertion(function () {
-    return actual == expected
-  }, msg))
+// Should be moved to some factory
+function equal(actual, expected) {
+  var equalAssertion = new EqualAssertion(actual, expected)
+  if (this.skipNext) {
+    equalAssertion.skip()
+  }
+
+  this.skipNext = false
+  this._queue.push(equalAssertion)
 }
+
+Object.defineProperty(Test.prototype, 'x', {
+  get: function () {
+    this.skipNext = true
+
+    return this
+  }
+})
+
+Test.prototype.eqv = equal
+Test.prototype.equal = equal
 
 Test.prototype.run = function () {
   console.log('Woof!' + emoji.dog + '\n')
@@ -18,7 +37,7 @@ Test.prototype.run = function () {
 
   this._queue.forEach(function (assertion) {
     if (!assertion.exec()) {
-      console.log('\t' + emoji.failed, assertion.msg)
+      console.log('\t' + emoji.failed, assertion.errMsg)
     }
   })
 

@@ -4,13 +4,19 @@ var states = Object.freeze({
   passed: 'Passed'
 })
 
-function Assertion(fn, msg) {
+function Assertion() {
   this._state = states.pending
-  this.fn = fn
-  this.msg = msg
+}
+
+Assertion.prototype.skip = function () {
+  this.isSkipped = true
 }
 
 Assertion.prototype.exec = function () {
+  if (this.isSkipped) {
+    return true
+  }
+
   var result = this.fn()
 
   if (result) {
