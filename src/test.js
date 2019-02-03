@@ -1,5 +1,5 @@
-var EqualAssertion = require('./assertions/equal')
 var emoji = require('./emoji')
+var assertMixin = require('./assertions/_mixin')
 
 /**
  * @param {String} desc - test description
@@ -7,17 +7,6 @@ var emoji = require('./emoji')
 function Test(desc) {
   this._desc = desc
   this._queue = []
-}
-
-// Should be moved to some factory
-function equal(actual, expected) {
-  var equalAssertion = new EqualAssertion(actual, expected)
-  if (this.skipNext) {
-    equalAssertion.skip()
-  }
-
-  this.skipNext = false
-  this._queue.push(equalAssertion)
 }
 
 Object.defineProperty(Test.prototype, 'x', {
@@ -28,8 +17,9 @@ Object.defineProperty(Test.prototype, 'x', {
   }
 })
 
-Test.prototype.eqv = equal
-Test.prototype.equal = equal
+for (var key in assertMixin) {
+  Test.prototype[key] = assertMixin[key]
+}
 
 Test.prototype.run = function () {
   console.log('Woof!' + emoji.dog + '\n')
