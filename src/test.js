@@ -35,8 +35,6 @@ Test.prototype.run = function () {
   this._queue.forEach(function (assertion) {
     if (!assertion.exec()) {
       console.log('\t' + emoji.failed, assertion.errMsg)
-    } else {
-      console.log('\t' + emoji.passed, assertion.actual)
     }
   })
 
@@ -51,6 +49,10 @@ Test.prototype.run = function () {
 
     return acc
   }, { passed: 0, failed: 0, pending: 0 })
+
+  if (!total.failed) {
+    console.log('\tOK!')
+  }
 
   console.log(
     '\nTotal' + emoji.paws +
