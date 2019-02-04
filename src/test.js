@@ -35,18 +35,18 @@ for (var key in assertMixin) {
  * Runs assertions in the queue
  */
 Test.prototype.run = function () {
-  console.log('\t' + this._desc)
+  var self = this
 
   this._queue.forEach(function (assertion) {
     if (!assertion.exec()) {
-      console.log('\t\t' + emoji.failed, assertion.errMsg)
+      console.log('\t' + self._desc + emoji.failed, assertion.errMsg)
     }
   })
 
   var total = this.getTotal()
 
   if (!total.failed) {
-    console.log('\tOK!')
+    console.log('\t' + this._desc + ' - OK')
   }
 }
 

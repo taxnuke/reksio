@@ -1,7 +1,7 @@
 module.exports = Object.freeze({
   paws: '\uD83D\uDC3E',
   dog: '\uD83D\uDC15',
-  passed: '\uD83D\uDC4D',
-  failed: '\uD83D\uDC4E',
+  passed: '\u2705',
+  failed: '\u2757',
   pending: '\u270B'
 })
