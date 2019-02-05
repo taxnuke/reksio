@@ -7,6 +7,7 @@ var assertMixin = require('./assertions/_mixin')
 function Test(desc) {
   this._desc = desc
   this._queue = []
+  this._started = new Date()
 }
 
 /**
@@ -46,7 +47,7 @@ Test.prototype.run = function () {
   var total = this.getTotal()
 
   if (!total.failed) {
-    console.log('\t' + this._desc + ' - OK')
+    console.log('\t' + this._desc + ' - OK (' + (new Date() - this._started) + 'ms)')
   }
 }
 
