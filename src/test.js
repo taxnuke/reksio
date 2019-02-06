@@ -47,7 +47,7 @@ Test.prototype.run = function () {
   var total = this.getTotal()
 
   if (!total.failed) {
-    console.log('\t' + this._desc + ' - OK (' + (new Date() - this._started) + 'ms)')
+    console.log('\t' + this._desc + ' ' + emoji.passed + ' (' + (new Date() - this._started) + 'ms)')
   }
 }
 
