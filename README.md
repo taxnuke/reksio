@@ -6,7 +6,7 @@ A beginner-friendly synchronous test library for learning
 
 Example:
 ```js
-var describe = require('./index')
+var describe = require('reksio')
 
 describe('Some suite')
   .xit('foo bar', function (assert) {
@@ -27,20 +27,16 @@ describe('Other suite')
     assert.deepEqual([1, 2, 3], [1, 2, 3])
     assert.deqv([1, 2], [1, 2])
   })
-
 ```
 
 Result:
-```sh
-Some suite??
-        foo bar ?
-        baz
-                ?? Expected 1,2,3 to be deeply equal 1,2
+```
+Some suite🐕
+	foo bar ✋
+	baz❗ Expected 1,2,3 to be deeply equal 1,2
 
-Other suite??
-        qux
-                ?? Expected 5 to equal 6
-                ?? Expected 8 to equal 7
-        quux
-        OK!
+Other suite🐕
+	qux❗ Expected 5 to equal 6
+	qux❗ Expected 8 to equal 7
+	quux ✅ (1ms)
 ```
